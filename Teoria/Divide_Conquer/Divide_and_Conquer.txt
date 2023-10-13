@@ -1,0 +1,11 @@
+Introduccion:
+
+Divide and Conquer es una forma recursiva de resolver problemas dividiendolos en subproblemas mas faciles de manejar y luego combinando los estados de salida en la respuesta final.
+
+Son 3 niveles por recursion:
+- "Divide" (Divide) el problema en un numero de subproblrmas que son versiones mas reducidas del problema original.
+- "Conquer" (Conquista) los subproblemas resolvidendolos de forma recursiva. Una vez la entrada este lo suficientemente divida resolvemos el problema de una forma mas directa.
+- "Combine" (Une) las soluciones de cada subproblema se mezclan de tal forma que se resuelve el problema original.
+
+Es decir que las salidas de cada recursion hace un "bottom out" por que la respuesta sale desde el caso base una vez la input se haya reducido al maximo.
+
