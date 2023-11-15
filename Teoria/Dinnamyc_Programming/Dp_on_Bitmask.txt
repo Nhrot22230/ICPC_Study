@@ -1,0 +1,43 @@
+Primeras Ideas:
+
+Sabemos que Dp representa una recursion mejorada + memoization y bitmask representa estados de seleccion etc ej. ...111001
+
+Entonces como primera idea seria guardar los estados del bitmask
+
+Problema de los sombreros:
+Consider the below problems statement. There are 100 different types of caps each having a unique id from 1 to 100. Also, there are ‘n’ persons each having a collection of a variable number of caps. One day all of these persons decide to go in a party wearing a cap but to look unique they decided that none of them will wear the same type of cap. So, count the total number of arrangements or ways such that none of them is wearing the same type of cap. Constraints: 1 <= n <= 10 Example:
+
+The first line contains the value of n, next n lines contain collections 
+of all the n persons.
+Input: 
+3
+5 100 1     // Collection of the first person.
+2           // Collection of the second person.
+5 100       // Collection of the third person.
+
+Output:
+4
+Explanation: All valid possible ways are (5, 2, 100),  (100, 2, 5), (1, 2, 5) and  (1, 2, 100)
+
+Mi primera idea de solucion seria ir guardando el estado del bitmask a medida que se avance x los arreglos
+Ej.
+
+cada persona se guardaria en un vector<vector<int>> personas. para tener lo siguiente:
+
+0 -> 5 100 1
+1 -> 2
+2 -> 5 100
+
+Identificacion de solucion optima
+Todas las formas q pueden usar las personas sombreritos
+Osea Caps[0] != Caps[1] && Caps[0] != Caps[2] && Caps[1] != Caps[2] ... 
+
+Planteamos recursion
+
+Primero atravesar los indices:
+
+recursion(index_person, index_person_cap, max_persons, max_person_caps);
+
+Para manejar los conflictyos usamos bitmask, pero como usar un bitmask tan grande?
+XD retrocediendo antes de avanzar
+pipipipipi
