@@ -20,9 +20,9 @@ int corta_arbol(int v[], int s[], int e[], int l[], int i, int size){
 }
 
 int main(){
-    int v[4]  {70, 40, 80, 190};
-    int s[4]  {3, 2, 4, 1};
-    int e[4]  {5, 4, 12, 15};
+    int v[4]  {30, 40, 80, 100};
+    int s[4]  {5, 2, 6, 4};
+    int e[4]  {10, 4, 12, 15};
     
     int l[20] {};
 

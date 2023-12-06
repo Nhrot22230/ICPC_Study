@@ -12,11 +12,12 @@ int knapSack_firstApproach(int w[], int v[], int i, int size, int C){
 }
 
 int main(){
-    int w[10] {1, 3, 4, 2,  8, 9, 11, 2, 4, 5};
-    int v[10] {1, 4, 5, 7, 21, 1, 12, 4, 5, 1};
-    int C = 13;
-
-    cout << knapSack_firstApproach(w, v, 0, 10, C) << endl;
-
+    int N, W;
+    cin >> N >> W;
+    
+    int w[N]{}, v[N]{};
+    for(int i=0; i<N; i++) cin >> w[i] >> v[i];
+    
+    cout << knapSack_firstApproach(w, v, 0, N, W) << endl;
     return 0;
 }
