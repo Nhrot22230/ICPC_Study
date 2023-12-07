@@ -39,6 +39,7 @@ Para aprovechar al máximo este repositorio, aquí hay algunas sugerencias:
 ¡Aprender también puede ser visual! Aquí hay algunas imágenes inspiradoras:
 
 ![Algoritmos en Acción](https://he-s3.s3.amazonaws.com/media/uploads/a0c7f90.jpg)
+
 *¡Los algoritmos cobran vida!*
 
 ![Coder's Paradise](https://www.cs.cornell.edu/acm/images/icpc-logo.png)
