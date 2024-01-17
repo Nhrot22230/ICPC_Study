@@ -16,14 +16,11 @@ using namespace std;
 void Solve(){
     int n;
     cin >> n;
-    ll a[n];
+    vector<int> a(0, n);
+
     for(int i=0; i<n; i++) cin >> a[i];
 
-    for(int i=n-1; i>0; i--) a[i-1] += a[i];
-
-    ll sum = a[0];
-    for(int i=1; i<n; i++) if(a[i] > 0) sum += a[i];
-    cout << sum << endl;
+    
 }
 
 int main(void)

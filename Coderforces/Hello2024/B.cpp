@@ -16,14 +16,28 @@ using namespace std;
 void Solve(){
     int n;
     cin >> n;
-    ll a[n];
-    for(int i=0; i<n; i++) cin >> a[i];
+    int a[n];
+    for(int i=0; i<n; i++){
+        char c; cin >> c;
+        if(c == '+') a[i] = 1;
+        else a[i] = -1;
+    }
 
-    for(int i=n-1; i>0; i--) a[i-1] += a[i];
+    stack<int> s;
 
-    ll sum = a[0];
-    for(int i=1; i<n; i++) if(a[i] > 0) sum += a[i];
-    cout << sum << endl;
+    for(int i=0; i<n; i++){
+        if(s.empty()){
+            s.push(a[i]);
+            continue;
+        }
+        if(s.top() == a[i]){
+            s.push(a[i]);
+        }
+        else{
+            s.pop();
+        }
+    }
+    cout << s.size() << endl;
 }
 
 int main(void)
