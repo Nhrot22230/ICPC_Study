@@ -14,8 +14,6 @@ ll dp[N][N] {};
 
 string frase = "";
 
-
-
 ll DP(int i, int j){
     if(i == s.length() | j == t.length()) return 0;
 

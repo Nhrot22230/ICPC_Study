@@ -5,50 +5,31 @@
 #define fastio ios_base::sync_with_stdio(false); std::cin.tie(NULL);
 
 using namespace std;
+const int maxn = 1e5 + 10;
+const int INF = 0x3f3f3f3f;
 
+int w[maxn], v[maxn];
+ll dp[maxn];
 
-const int MAX_N = 1e5 + 7;
-
-ll dp[MAX_N] {};
-
-ll W[MAX_N] {};
-ll V[MAX_N] {};
-
-ll cont = 0; // Lo uso para saber cuantas veces se llama la func tehehe
-
-ll DP(ll i){
-    cont++;
-
-    if(dp[i]) return dp[i];
-
-
-
-    return dp[i];
-}
-
-void Solve(void)
-{
-    ll n, w;
-    cin >> n >> w;
-
-    for(size_t i =0; i<n; ++i) cin >> W[i] >> V[i];
-
-    cout << DP(n) << ENDL;
-    //cout << cont << ENDL;
-}
-
-int main(void)
-{
-    fastio;
-    
-    size_t t = 1;
-
-    //cin >> t;
-
-    while (t--)
-    {
-        Solve();
+int main() {
+    int n, W, V = 0;
+    cin >> n >> W;
+    for (int i = 1; i <= n; ++i) {
+        cin >> w[i] >> v[i];
+        V += v[i];
     }
-    
-    return 0;
+
+    memset(dp, INF, sizeof(dp));
+    dp[0] = 0;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = V; j >= v[i]; --j) {
+            dp[j] = min(dp[j], dp[j - v[i]] + w[i]);
+        }
+    }
+    for (int i = V; i >= 0; --i) {
+        if (dp[i] <= W) {
+            cout << i << endl;
+            return 0;
+        }
+    }
 }
