@@ -1,0 +1,194 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const int N_INF = -1000000000;
+const int INF = 1000000000;
+typedef long long ll ;
+
+typedef struct {
+  vector<ll> dist;
+  vector<int> path;
+} Dijkstra;
+
+class Graph{
+  int V;
+  int E;
+  vector<vector<pair<int, ll>>> adj;
+  vector<ll> dist;
+  vector<int> path;
+  vector<bool> vis;
+
+  public:
+  Graph(int n, int e) {
+    V = n + 1;
+    E = e;
+    adj = vector<vector<pair<int, ll>>>(V);
+  }
+
+  void readGraph() {
+    int e = E;
+    while(e--) {
+      int u, v, w;
+      cin >> u >> v >> w;
+
+      adj[u].push_back({v,w});
+      adj[v].push_back({u,w});
+    }
+  }
+
+  Dijkstra dijkstra(int src) {
+    dist = vector<ll>(V, INF);
+    path = vector<int>(V, -1);
+
+    priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<int, ll>>> pq;
+    dist[src] = 0;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+      int from = pq.top().second;
+      int d = pq.top().first;
+      pq.pop();
+      for (auto &neighbor : adj[from]) {
+        int v = neighbor.first;
+        int w = neighbor.second;
+        if (dist[v] > dist[from] + w) {
+          dist[v] = dist[from] + w;
+          path[from] = v;
+          pq.push({dist[v], v});
+        }
+      }
+    }
+
+    return {dist, path};
+  }
+  Dijkstra dijkstra_ignoring(int src, int ignored) {
+    dist = vector<ll>(V, INF);
+    path = vector<int>(V, -1);
+
+    priority_queue<pair<ll, int>, vector<pair<ll, int>>, greater<pair<int, ll>>> pq;
+    dist[src] = 0;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+      int from = pq.top().second;
+      int d = pq.top().first;
+      pq.pop();
+      for (auto &neighbor : adj[from]) {
+        int v = neighbor.first;
+        int w = neighbor.second;
+        if (dist[v] > dist[from] + w  && v != ignored) {
+          dist[v] = dist[from] + w;
+          path[from] = v;
+          pq.push({dist[v], v});
+        }
+      }
+    }
+
+    return {dist, path};
+  }
+
+  vector<int> restore_path(int src, int to, vector<int> const& p) {
+    vector<int> path;
+    for (int v = to; v != src; v = p[v]) path.push_back(v);
+    path.push_back(src);
+    reverse(path.begin(), path.end());
+    return path;
+  }
+
+  void bfs(int src) {
+    queue<int> q;
+    vector<bool> visited(V, false);
+
+    q.push(src);
+    visited[src] = true;
+
+    while (!q.empty()) {
+      int node = q.front();
+      q.pop();
+
+      cout << node << " ";
+
+      for (auto &neighbor : adj[node]) {
+        int v = neighbor.first;
+        if (!visited[v]) {
+          q.push(v);
+          visited[v] = true;
+        }
+      }
+    }
+    cout << endl;
+  }
+
+  void dfs(int src) {
+    stack<int> s;
+    vector<bool> visited(V, false);
+
+    s.push(src);
+
+    while (!s.empty()) {
+      int node = s.top();
+      s.pop();
+
+      if (!visited[node]) {
+        cout << node << " ";
+        visited[node] = true;
+      }
+
+      for (auto &neighbor : adj[node]) {
+        int v = neighbor.first;
+        if (!visited[v]) {
+          s.push(v);
+        }
+      }
+    }
+    cout << endl;
+  }
+
+  void dfs_recursive(int src) {
+    vector<bool> visited(V, false);
+    dfs_recursive_util(src, visited);
+    cout << endl;
+  }
+
+  private:
+  void dfs_recursive_util(int node, vector<bool> &visited) {
+    visited[node] = true;
+    cout << node << " ";
+    for (auto &neighbor : adj[node]) {
+      int v = neighbor.first;
+      if (!visited[v]) {
+        dfs_recursive_util(v, visited);
+      }
+    }
+  }
+};
+
+int main() {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+    int v, e; cin >> v >> e;
+    int start, meeting; cin >> start >> meeting;
+    Graph g(v, e);
+    g.readGraph();
+
+    Dijkstra res = g.dijkstra(start);
+    Dijkstra opt = g.dijkstra_ignoring(start, meeting);
+    vector<int> cand;
+
+    ll target = res.dist[meeting];
+    for(int i=1; i <= v; i++) {
+        if (target*2 == res.dist[i] && target*2 != opt.dist[i]) {
+            cand.push_back(i);
+        }
+    }
+
+    if (cand.empty()) {
+        cout << "*\n";
+    }
+    else {
+        for(auto &i : cand) cout << i << ' ';
+        cout << endl;
+    }
+
+    return 0;
+}
